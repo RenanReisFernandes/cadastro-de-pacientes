@@ -1,5 +1,7 @@
 package com.cadastro.cadastro.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,10 @@ public class PacienteService {
 	
 	public Paciente create(Paciente paciente) {
 		return pacienteRepository.save(paciente);
+	}
+	
+	public List<Paciente> buscarTodos(){
+		return pacienteRepository.findAll();
 	}
 
 }

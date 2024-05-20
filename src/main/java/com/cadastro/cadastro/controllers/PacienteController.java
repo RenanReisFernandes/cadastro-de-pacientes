@@ -1,8 +1,11 @@
 package com.cadastro.cadastro.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,12 @@ public class PacienteController {
 	public ResponseEntity<Paciente> criar(@RequestBody Paciente paciente){
 		Paciente entidade = pacienteService.create(paciente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(entidade);
+	}
+	
+	@GetMapping(value = "/pacientes")
+	public ResponseEntity<List<Paciente>> buscarTodos(){
+		List<Paciente> lista = pacienteService.buscarTodos();
+		return ResponseEntity.status(HttpStatus.FOUND).body(lista);
 	}
 
 }
