@@ -30,5 +30,28 @@ public class PacienteService {
 		Optional<Paciente> opt = pacienteRepository.findById(id);
 		return opt;
 	}
+	
+	public void deletar(Long id) {
+		pacienteRepository.deleteById(id);
+	}
+	
+	public Paciente atualizar(Long id, Paciente pacienteAtualizado) {
+		Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
+		if (optionalPaciente.isPresent()) {
+			Paciente pacienteExistente = optionalPaciente.get();
+			
+			// Atualizar os campos do pacienteExistente com os valores do pacienteAtualizado
+			pacienteExistente.setNome(pacienteAtualizado.getNome());
+			pacienteExistente.setSobrenome(pacienteAtualizado.getSobrenome());
+			pacienteExistente.setCpf(pacienteAtualizado.getCpf());
+			pacienteExistente.setEmail(pacienteAtualizado.getEmail());
+			pacienteExistente.setAgenda(pacienteAtualizado.getAgenda());
+			
+			// Salvar as alterações
+			return pacienteRepository.save(pacienteExistente);
+		} else {
+			throw new RuntimeException("Paciente não encontrado com o id " + id);
+		}
+	}	
 
 }
