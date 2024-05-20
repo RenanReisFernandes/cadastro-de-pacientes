@@ -1,6 +1,7 @@
 package com.cadastro.cadastro.entities;
 
 import java.time.Instant;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +32,6 @@ public class Agenda {
 	private String descricao;
 	@Column(name = "paciente_id")
 	@OneToMany
-	private Paciente paciente;
+	private List<Paciente> pacientes;
 
 }
