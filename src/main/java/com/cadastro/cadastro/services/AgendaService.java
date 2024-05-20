@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import com.cadastro.cadastro.entities.Agenda;
 import com.cadastro.cadastro.repositories.AgendaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class AgendaService {
 
 	@Autowired
