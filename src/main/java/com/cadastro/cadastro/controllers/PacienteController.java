@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cadastro.cadastro.DTO.request.PacienteRequest;
+import com.cadastro.cadastro.DTO.response.PacienteResponse;
 import com.cadastro.cadastro.entities.Paciente;
+import com.cadastro.cadastro.mapperconfig.PacienteMapper;
 import com.cadastro.cadastro.services.PacienteService;
 
 @RestController
@@ -26,15 +29,19 @@ public class PacienteController {
 	private PacienteService pacienteService;
 	
 	@PostMapping
-	public ResponseEntity<Paciente> criar(@RequestBody Paciente paciente){
-		Paciente entidade = pacienteService.create(paciente);
-		return ResponseEntity.status(HttpStatus.CREATED).body(entidade);
+	public ResponseEntity<PacienteResponse> criar(@RequestBody PacienteRequest pacienteRequest){
+		
+		Paciente paciente = PacienteMapper.toPaciente(pacienteRequest);
+		Paciente pacienteSalvo = pacienteService.create(paciente);
+		PacienteResponse pacienteResponse = PacienteMapper.toPacienteResponse(pacienteSalvo);
+		return ResponseEntity.status(HttpStatus.CREATED).body(pacienteResponse);
 	}
 	
 	@GetMapping(value = "/pacientes")
-	public ResponseEntity<List<Paciente>> buscarTodos(){
-		List<Paciente> lista = pacienteService.buscarTodos();
-		return ResponseEntity.status(HttpStatus.FOUND).body(lista);
+	public ResponseEntity<List<PacienteResponse>> buscarTodos(){
+		List<Paciente> pacientes = pacienteService.buscarTodos();
+		List<PacienteResponse> pacienteResponseList = PacienteMapper.toPacienteResponseList(pacientes);
+		return ResponseEntity.status(HttpStatus.FOUND).body(pacienteResponseList);
 	}
 	
 	@GetMapping("/{id}")
