@@ -24,6 +24,7 @@ import com.cadastro.cadastro.services.PacienteService;
 @RestController
 @RequestMapping("v1/paciente")
 public class PacienteController {
+	// PARA USAR A CLASSE PACIENTEMODELMAPPER AQUI DECLARE ELA E SUBSTITUA ONDE ESTIVER ESCRITO PACIENTEMAPPER
 	
 	@Autowired
 	private PacienteService pacienteService;
