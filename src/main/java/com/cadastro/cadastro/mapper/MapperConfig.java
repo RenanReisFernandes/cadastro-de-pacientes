@@ -1,4 +1,4 @@
-package com.cadastro.cadastro.config;
+package com.cadastro.cadastro.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
