@@ -1,5 +1,6 @@
 package com.cadastro.cadastro.DTO.request;
 
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

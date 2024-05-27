@@ -1,3 +1,4 @@
+/*
 package com.cadastro.cadastro.mapperconfig;
 
 import java.util.List;
@@ -33,3 +34,5 @@ public class PacienteModelMapper {
 	}
 
 }
+
+*/

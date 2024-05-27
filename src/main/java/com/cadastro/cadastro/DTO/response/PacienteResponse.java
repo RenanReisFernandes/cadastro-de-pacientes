@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class PacienteResponse {
 
+
 	private String nome;
 	private String sobrenome;
 	private String cpf;

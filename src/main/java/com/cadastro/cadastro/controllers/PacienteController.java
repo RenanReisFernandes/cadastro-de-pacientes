@@ -21,6 +21,9 @@ import com.cadastro.cadastro.entities.Paciente;
 import com.cadastro.cadastro.mapperconfig.PacienteMapper;
 import com.cadastro.cadastro.services.PacienteService;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("v1/paciente")
 public class PacienteController {
@@ -30,7 +33,7 @@ public class PacienteController {
 	private PacienteService pacienteService;
 	
 	@PostMapping
-	public ResponseEntity<PacienteResponse> criar(@RequestBody PacienteRequest pacienteRequest){
+	public ResponseEntity<PacienteResponse> criar( @Valid @RequestBody PacienteRequest pacienteRequest){
 		
 		Paciente paciente = PacienteMapper.toPaciente(pacienteRequest);
 		Paciente pacienteSalvo = pacienteService.create(paciente);
