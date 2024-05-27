@@ -45,9 +45,12 @@ public class PacienteController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Paciente>> buscarPorId(@PathVariable Long id){
+	public ResponseEntity<PacienteResponse> buscarPorId(@PathVariable Long id){
 		Optional<Paciente> opt = pacienteService.buscarPorId(id);
-		return ResponseEntity.status(HttpStatus.FOUND).body(opt);
+		if(opt.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.FOUND).body(PacienteMapper.toPacienteResponse(opt.get()));
 	}
 	
 	@DeleteMapping("/{id}")
@@ -56,10 +59,13 @@ public class PacienteController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Paciente> atualizar(@PathVariable Long id, @RequestBody Paciente pacienteAtualizado) {
+	public ResponseEntity<PacienteResponse> atualizar(@PathVariable Long id, @RequestBody PacienteRequest pacienteAtualizado) {
+		
 		try {
-			Paciente paciente = pacienteService.atualizar(id, pacienteAtualizado);
-			return ResponseEntity.status(HttpStatus.OK).body(paciente);
+			Paciente paciente = PacienteMapper.toPaciente(pacienteAtualizado);
+			Paciente pacienteSalvo = pacienteService.atualizar(id, paciente);
+			PacienteResponse pacienteResponse = PacienteMapper.toPacienteResponse(pacienteSalvo);
+			return ResponseEntity.status(HttpStatus.OK).body(pacienteResponse);
 		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
